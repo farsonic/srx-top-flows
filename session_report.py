@@ -20,17 +20,28 @@ dev = Device(host=srx,user=user,password=password)
 dev.open()
 
 flow_data = etree.tostring(dev.rpc.get_flow_session_information())
-jflows = myparser(flow_data)
-flow_sessions = jflows['flow-session-information']['flow-session']
+flows = myparser(flow_data)
+user_data = etree.tostring(dev.rpc.get_userfw_local_auth_table_all())
 
-print '{0:10}{1:<10}{2:<30}{3:<10}{4:<10}{5:<22}'.format("ID", "Minutes","Application name", "MB Up", "MB Down","Source|Destination pair")
-print "============================================================================================================================================================================="
+flow_sessions = flows['flow-session-information']['flow-session']
+
+#create list of users defined locally on SRX 
+users = {}
+for (_, _, local_user) in myparser(user_data, generator=['local-authentication-info']):
+  name = str(local_user['user-name'].get_cdata())
+  ip = str(local_user['ip-address'])
+  users[ip] = {'Name':name} 
+  
+print "\n"
+print '{0:8}{1:<10}{2:<25}{3:<10}{4:<10}{5:<22}'.format("ID", "Minutes","Application name", "MB Up", "MB Down","Source|Destination pair")
+print "========================================================================================================================================================================"
 
 for element in flow_sessions: 
    in_pckt_cnt = 0
    in_byte_cnt = 0 
    out_pckt_cnt = 0
    out_byte_cnt = 0 
+   
    for flow_info in element['flow-information']:
      direction = str(flow_info['direction'])
      while direction == "In":
@@ -52,11 +63,19 @@ for element in flow_sessions:
      obj = IPWhois(dst_ip)
      results = obj.lookup_rdap(depth=1)
      name = (results['network']['name'])
+     application = str(element['dynamic-application-name'])
+     application = application.lstrip("junos:")
+     if src_ip in users:
+      username = users[src_ip]['Name']
+     else:
+      username = "Unknown"  
      if IPAddress(dst_ip).is_private() <> True: 
       iplookup = geolite2.lookup(dst_ip)
       country = iplookup.country
       timezone = iplookup.timezone
-     print '{0:10}{1:<10}{2:<30}{3:<10.2f}{4:<10.2f}{5:>13}{6:<1}{7:<22}{8:<30}{9:<5}{10:<20}'.format(element['session-identifier'], int(element['duration'])/60,element['dynamic-application-name'], in_mb_cnt, out_mb_cnt,src_ip,"<-->",dst_ip,name,country,timezone)
+     print '{0:8}{1:<10}{2:<25}{3:<10.2f}{4:<10.2f}{5:>13}{6:<1}{7:<18}{8:<20}{9:<5}{10:<20}{11:<20}'.format(element['session-identifier'], int(element['duration'])/60, application, in_mb_cnt, out_mb_cnt,src_ip,"<-->",dst_ip,name,country,timezone,username)
 
+print "========================================================================================================================================================================"
+print "\n"
 dev.close()
 
