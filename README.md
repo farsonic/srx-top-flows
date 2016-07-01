@@ -11,7 +11,6 @@ pip install jxmlease
 pip install lxml
 pip install junos-eznc 
 pip install geoip
-pip install netaddr
 ```
 Once the required libraries are installed modify the python script to have the correct value for the SRX IP-Address/Hostname as well as the username and password used to connect. 
 
