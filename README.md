@@ -3,7 +3,7 @@ Return a list of the top open security flows on a Juniper SRX firewall
 
 Often through an SRX firewall there are users downloading large files. This script is deisnged to quickly identify the top flow entries listed by Session-ID, Minutes downloading as well as Megabytes In/Out. Additionally the script performs a whois on the destination IP Addresses as well as a GeoIP lookup to help identify the source. 
 
-#### H4 Ensure you have installed the prerequisite python libraries 
+# Ensure you have installed the prerequisite python libraries 
 ```
 pip install jxmlease
 pip install lxml
@@ -12,7 +12,7 @@ pip install geoip
 pip install netaddr
 ```
 
- #### H4 Usage
+ # Usage
 ```
 ./Session-Report.py
 ID        Minutes   Application name              MB Up     MB Down   Source|Destination pair
