@@ -18,12 +18,12 @@ Once the required libraries are installed modify the python script to have the c
 If required make the python script exectable. 
 
 ```
-chmod +x Session-Report.py
+chmod +x session-Report.py
 ```
 
 # Usage
 ```
-./Session-Report.py
+./session-Report.py
 ID        Minutes   Application name              MB Up     MB Down   Source|Destination pair
 =============================================================================================================================================================================
 11366     4         junos:HTTP                    0.00      2.00      192.168.0.100<-->90.130.74.113         SE-TELE2-SERVERS              SE   Europe/Stockholm    
