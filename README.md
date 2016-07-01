@@ -14,7 +14,7 @@ pip install netaddr
 
 Usage
 ```
-./Session-Report_v0.4.py
+./Session-Report.py
 ID        Minutes   Application name              MB Up     MB Down   Source|Destination pair
 =============================================================================================================================================================================
 11366     4         junos:HTTP                    0.00      2.00      192.168.0.100<-->90.130.74.113         SE-TELE2-SERVERS              SE   Europe/Stockholm    
