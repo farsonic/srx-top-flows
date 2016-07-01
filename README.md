@@ -1,7 +1,7 @@
 # srx-top-flows
 Return a list of the top open security flows on a Juniper SRX firewall
 
-Often through an SRX firewall there are users downloading large files. This script is deisnged to quickly identify the top flow entries listed by Session-ID, Minutes downloading as well as Megabytes In/Out. Additionally the script performs a whois on the destination IP Addresses as well as a GeoIP lookup to help identify the source. 
+Often through an SRX firewall there are users downloading large files. This script is deisnged to quickly identify the top open flow entries listed by Session-ID, Minutes downloading as well as Megabytes In/Out. Additionally the script performs a whois on the destination IP Addresses as well as a GeoIP lookup to help identify the source. 
 
 **WARNING:** This has been built/tested against a vSRX in a small environment. A large production SRX Firewall located in an Enterprise or Datacenter will have a huge session table and retriving the XML might take some time! Please test and validate before using on production equipment. 
 
@@ -18,7 +18,7 @@ Once the required libraries are installed modify the python script to have the c
 If required make the python script exectable. 
 
 ```
-chmod +x session-Report.py
+chmod +x session-report.py
 ```
 
 # Usage
