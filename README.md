@@ -13,6 +13,13 @@ pip install junos-eznc
 pip install geoip
 pip install netaddr
 ```
+Once the required libraries are installed modify the python script to have the correct value for the SRX IP-Address/Hostname as well as the username and password used to connect. 
+
+If required make the python script exectable. 
+
+```
+chmod +x Session-Report.py
+```
 
 # Usage
 ```
